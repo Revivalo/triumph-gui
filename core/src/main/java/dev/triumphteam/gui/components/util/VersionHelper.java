@@ -27,6 +27,7 @@ import com.google.common.primitives.Ints;
 import dev.triumphteam.gui.components.exception.GuiException;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
@@ -37,7 +38,7 @@ import java.util.regex.Pattern;
  */
 public final class VersionHelper {
 
-    private static final String NMS_VERSION = getNmsVersion();
+    private static final String CRAFTBUKKIT_PACKAGE = Bukkit.getServer().getClass().getPackage().getName();
 
     // Unbreakable change
     private static final int V1_11 = 1110;
@@ -51,6 +52,7 @@ public final class VersionHelper {
     private static final int V1_12_1 = 1121;
     // PlayerProfile API
     private static final int V1_20_1 = 1201;
+    private static final int V1_20_5 = 1205;
 
     private static final int CURRENT_VERSION = getCurrentVersion();
 
@@ -94,9 +96,9 @@ public final class VersionHelper {
     public static final boolean IS_PLAYER_PROFILE_API = CURRENT_VERSION >= V1_20_1;
 
     /**
-     * Checks if the server is Folia
+     * Starting with version 1.20.5 the internal field referenced by {@link ItemMeta#getDisplayName()} is no longer a string
      */
-    public static final boolean IS_FOLIA = checkFolia();
+    public static final boolean IS_ITEM_NAME_COMPONENT = CURRENT_VERSION >= V1_20_5;
 
     /**
      * Check if the server has access to the Paper API
@@ -114,24 +116,9 @@ public final class VersionHelper {
     }
 
     /**
-     * Check if the server has access to the Folia API
-     * Taken from <a href="https://github.com/PaperMC/Folia">Folia</a>
-     *
-     * @return True if on Folia server (or forks), false anything else
-     */
-    private static boolean checkFolia() {
-        try {
-            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
-            return true;
-        } catch (ClassNotFoundException ignored) {
-            return false;
-        }
-    }
-
-    /**
      * Gets the current server version
      *
-     * @return A protocol like number representing the version, for example 1.16.5 - 1165
+     * @return A protocol like number representing the version, for example, 1.16.5 -> 1165
      */
     private static int getCurrentVersion() {
         // No need to cache since will only run once
@@ -154,13 +141,8 @@ public final class VersionHelper {
         return version;
     }
 
-    private static String getNmsVersion() {
-        final String version = Bukkit.getServer().getClass().getPackage().getName();
-        return version.substring(version.lastIndexOf('.') + 1);
-    }
-
     public static Class<?> craftClass(@NotNull final String name) throws ClassNotFoundException {
-        return Class.forName("org.bukkit.craftbukkit." + NMS_VERSION + "." + name);
+        return Class.forName(CRAFTBUKKIT_PACKAGE + "." + name);
     }
 
 }

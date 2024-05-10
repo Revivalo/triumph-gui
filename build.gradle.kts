@@ -7,7 +7,7 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven("https://repo.papermc.io/repository/maven-public/")
+        maven("https://hub.spigotmc.org/nexus/content/groups/public/")
     }
 }
 
@@ -23,12 +23,13 @@ subprojects {
 
     dependencies {
         compileOnly("org.jetbrains:annotations:21.0.1")
-        compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+        compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
 
-        val adventureVersion = "4.14.0"
+        val adventureVersion = "4.16.0"
         api("net.kyori:adventure-api:$adventureVersion")
         api("net.kyori:adventure-text-serializer-legacy:$adventureVersion")
         api("net.kyori:adventure-text-serializer-gson:$adventureVersion")
+        api("net.kyori:adventure-platform-bukkit:4.3.2")
     }
 
     license {
