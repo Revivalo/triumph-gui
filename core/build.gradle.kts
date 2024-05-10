@@ -1,6 +1,6 @@
 plugins {
     `maven-publish`
-    signing
+    //signing
 }
 
 repositories {
@@ -94,13 +94,13 @@ tasks {
 
     }
 
-    signing {
-        useGpgCmd()
-        val signingKey = System.getenv("GPG_KEY")
-        val signingPassword = System.getenv("GPG_PASS")
-        val secretKey = System.getenv("GPG_SECRET_KEY")
-        useInMemoryPgpKeys(signingKey, secretKey, signingPassword)
-        sign(publishing.publications["maven"])
-    }
+//    signing {
+//        useGpgCmd()
+//        val signingKey = System.getenv("GPG_KEY")
+//        val signingPassword = System.getenv("GPG_PASS")
+//        val secretKey = System.getenv("GPG_SECRET_KEY")
+//        useInMemoryPgpKeys(signingKey, secretKey, signingPassword)
+//        sign(publishing.publications["maven"])
+//    }
 
 }
