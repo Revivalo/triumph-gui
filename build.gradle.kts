@@ -1,5 +1,4 @@
 plugins {
-    id("maven-publish")
     id("java-library")
     id("com.github.hierynomus.license") version "0.16.1"
 }
@@ -47,5 +46,4 @@ subprojects {
             options.encoding = "UTF-8"
         }
     }
-
 }
